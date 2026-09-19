@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SiCerdik - Kuis Interaktif Sejarah Indonesia</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        slate: {
+                            850: '#1e293b',
+                            900: '#0f172a',
+                        },
+                        navy: {
+                            50: '#f0f4f8',
+                            100: '#d9e2ec',
+                            700: '#334e68',
+                            800: '#243b53',
+                            900: '#102a43',
+                        },
+                        emerald: {
+                            600: '#059669',
+                            700: '#047857',
+                        },
+                        amber: {
+                            500: '#d97706',
+                            600: '#b45309',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+        .option-card {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .option-card:hover {
+            transform: translateY(-2px);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+    </style>
+</head>
+<body class="font-sans min-h-screen flex flex-col justify-between selection:bg-navy-700 selection:text-white">
+
+    <!-- Navbar Minimalis & Elegan -->
+    <header class="bg-navy-900 text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto px-4 py-3.5 flex justify-between items-center">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="showSection('welcome-screen')">
+                <div class="bg-amber-500 text-navy-900 p-2 rounded-lg font-bold text-lg">
+                    <i class="fa-solid fa-landmark"></i>
+                </div>
+                <div>
+                    <h1 class="font-serif font-bold text-xl tracking-wide text-slate-100">SiCerdik</h1>
+                    <p class="text-xs text-slate-300 font-light">Sejarah Indonesia Interaktif</p>
+                </div>
+            </div>
+            
+            <button onclick="openDevAuthModal()" class="flex items-center space-x-2 text-xs bg-navy-800 hover:bg-navy-700 text-slate-200 px-3.5 py-2 rounded-lg border border-navy-700 transition">
+                <i class="fa-solid fa-user-shield text-amber-500"></i>
+                <span class="font-medium hidden sm:inline">Mode Developer</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-4xl mx-auto px-4 py-8 flex-grow w-full">
+
+        <!-- 1. WELCOME SCREEN -->
+        <section id="welcome-screen" class="space-y-6 text-center py-6">
+            <div class="inline-block bg-navy-50 text-navy-800 text-xs font-semibold px-4 py-1.5 rounded-full border border-navy-100 mb-2">
+                <i class="fa-solid fa-book-open mr-1.5 text-amber-600"></i> Ruang Belajar & Evaluasi Sejarah
+            </div>
+            
+            <h2 class="font-serif text-3xl sm:text-4xl font-bold text-navy-900 leading-tight">
+                Uji Pengetahuan Sejarah Bangsa<br>
+                <span class="text-amber-600 italic font-normal">Sambil Meneladani Semangat Pahlawan</span>
+            </h2>
+            
+            <p class="text-slate-600 max-w-xl mx-auto text-sm sm:text-base leading-relaxed">
+                Asah pemahaman sejarah perjuangan Indonesia secara terstruktur. Dapatkan penjelasan rinci pada setiap soal dan kata motivasi pahlawan di akhir sesi.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-2xl mx-auto my-8 text-left">
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex items-start space-x-3">
+                    <div class="text-navy-700 text-lg mt-0.5"><i class="fa-solid fa-list-check"></i></div>
+                    <div>
+                        <h4 class="font-semibold text-sm text-slate-800">Soal Berkualitas</h4>
+                        <p class="text-xs text-slate-500 mt-0.5">Dilengkapi pembahasan komprehensif.</p>
+                    </div>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex items-start space-x-3">
+                    <div class="text-emerald-600 text-lg mt-0.5"><i class="fa-solid fa-chart-line"></i></div>
+                    <div>
+                        <h4 class="font-semibold text-sm text-slate-800">Evaluasi Instan</h4>
+                        <p class="text-xs text-slate-500 mt-0.5">Penilaian akurat secara akumulatif.</p>
+                    </div>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex items-start space-x-3">
+                    <div class="text-amber-600 text-lg mt-0.5"><i class="fa-solid fa-quote-left"></i></div>
+                    <div>
+                        <h4 class="font-semibold text-sm text-slate-800">Pesan Pahlawan</h4>
+                        <p class="text-xs text-slate-500 mt-0.5">Inspirasi motivasi pencerah jiwa.</p>
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="startQuiz()" class="inline-flex items-center justify-center space-x-2 bg-navy-900 hover:bg-navy-800 text-white font-semibold px-8 py-3.5 rounded-xl shadow-lg hover:shadow-xl transition transform active:scale-95">
+                <span>Mulai Kuis Sekarang</span>
+                <i class="fa-solid fa-arrow-right text-xs"></i>
+            </button>
+        </section>
+
+        <!-- 2. QUIZ SCREEN -->
+        <section id="quiz-screen" class="hidden space-y-6">
+            <!-- Progress Header -->
+            <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-3">
+                <div class="w-full sm:w-2/3">
+                    <div class="flex justify-between text-xs font-semibold text-slate-600 mb-1.5">
+                        <span>Kemajuan Kuis</span>
+                        <span id="progress-text">Soal 1 dari 5</span>
+                    </div>
+                    <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
+                        <div id="progress-bar" class="bg-navy-800 h-2.5 rounded-full transition-all duration-300" style="width: 20%"></div>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-2 text-xs font-medium text-slate-500 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200">
+                    <i class="fa-regular fa-clock text-amber-600"></i>
+                    <span>Sistem Mandiri</span>
+                </div>
+            </div>
+
+            <!-- Question Box -->
+            <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200 space-y-6">
+                <h3 id="question-text" class="text-lg sm:text-xl font-bold text-slate-800 leading-relaxed">
+                    Loading soal...
+                </h3>
+
+                <!-- Options -->
+                <div id="options-container" class="space-y-3">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex justify-between items-center pt-2">
+                <button id="prev-btn" onclick="prevQuestion()" class="px-5 py-2.5 rounded-xl border border-slate-300 text-slate-600 hover:bg-slate-50 text-sm font-semibold transition disabled:opacity-40 disabled:cursor-not-allowed">
+                    <i class="fa-solid fa-chevron-left mr-1.5"></i> Sebelumnya
+                </button>
+                <button id="next-btn" onclick="nextQuestion()" class="px-6 py-2.5 rounded-xl bg-navy-900 hover:bg-navy-800 text-white text-sm font-semibold transition">
+                    Selanjutnya <i class="fa-solid fa-chevron-right ml-1.5"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- 3. RESULT & EVALUATION SCREEN -->
+        <section id="result-screen" class="hidden space-y-8 py-4">
+            <!-- Score Overview -->
+            <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200 text-center space-y-4">
+                <div class="inline-block p-3 rounded-full bg-slate-50 border border-slate-100 text-navy-800">
+                    <i class="fa-solid fa-award text-3xl"></i>
+                </div>
+                <h2 class="font-serif text-2xl sm:text-3xl font-bold text-navy-900">Hasil Evaluasi Kuis</h2>
+                
+                <div class="flex justify-center items-center gap-6 py-4">
+                    <div class="text-center">
+                        <p class="text-xs text-slate-500 font-medium uppercase tracking-wider">Nilai Akhir</p>
+                        <p id="final-score" class="text-4xl sm:text-5xl font-extrabold text-navy-900">0</p>
+                    </div>
+                    <div class="h-12 w-px bg-slate-200"></div>
+                    <div class="text-center">
+                        <p class="text-xs text-slate-500 font-medium uppercase tracking-wider">Akurasi Jawaban</p>
+                        <p id="score-details" class="text-lg font-semibold text-slate-700 mt-1">0 / 0 Soal</p>
+                    </div>
+                </div>
+
+                <!-- Kutipan Pahlawan -->
+                <div class="bg-navy-50 border-l-4 border-amber-500 p-5 rounded-r-xl text-left my-4">
+                    <p class="text-xs font-semibold text-amber-700 uppercase tracking-wider mb-1"><i class="fa-solid fa-quote-left mr-1"></i> Pesan Inspirasi Pahlawan</p>
+                    <p id="hero-quote" class="font-serif italic text-slate-800 text-sm sm:text-base leading-relaxed">
+                        "Pesan motivasi..."
+                    </p>
+                    <p id="hero-name" class="text-xs font-bold text-navy-900 text-right mt-2">— Nama Pahlawan</p>
+                </div>
+
+                <div class="flex justify-center gap-3 pt-2">
+                    <button onclick="startQuiz()" class="px-5 py-2.5 bg-navy-900 hover:bg-navy-800 text-white rounded-xl text-sm font-semibold transition">
+                        <i class="fa-solid fa-rotate-right mr-1.5"></i> Coba Lagi
+                    </button>
+                </div>
+            </div>
+
+            <!-- Pembahasan Soal -->
+            <div class="space-y-4">
+                <h3 class="font-serif text-xl font-bold text-slate-800 flex items-center">
+                    <i class="fa-solid fa-book-bookmark text-amber-600 mr-2"></i> Pembahasan Soal & Evaluasi
+                </h3>
+                <div id="review-container" class="space-y-4">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. DEVELOPER PANEL (Khusus Developer) -->
+        <section id="dev-screen" class="hidden space-y-6">
+            <div class="flex justify-between items-center bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                <div>
+                    <h3 class="font-bold text-lg text-slate-800"><i class="fa-solid fa-sliders text-amber-600 mr-2"></i>Panel Kelola Soal (Developer)</h3>
+                    <p class="text-xs text-slate-500">Tambah, ubah, atau hapus soal kuis interaktif.</p>
+                </div>
+                <button onclick="showSection('welcome-screen')" class="px-3.5 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-lg transition">
+                    Keluar Panel
+                </button>
+            </div>
+
+            <!-- Form Tambah Soal -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                <h4 class="font-bold text-slate-800 border-b border-slate-100 pb-2 text-sm uppercase tracking-wider">Tambah Soal Baru</h4>
+                <form id="add-question-form" onsubmit="handleSaveQuestion(event)" class="space-y-4 text-sm">
+                    <div>
+                        <label class="block font-medium text-slate-700 mb-1">Pertanyaan / Soal</label>
+                        <textarea id="form-question" required rows="2" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-navy-700 focus:outline-none" placeholder="Tuliskan pertanyaan..."></textarea>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block font-medium text-slate-700 mb-1">Pilihan A</label>
+                            <input type="text" id="form-opt-0" required class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-navy-700 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block font-medium text-slate-700 mb-1">Pilihan B</label>
+                            <input type="text" id="form-opt-1" required class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-navy-700 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block font-medium text-slate-700 mb-1">Pilihan C</label>
+                            <input type="text" id="form-opt-2" required class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-navy-700 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block font-medium text-slate-700 mb-1">Pilihan D</label>
+                            <input type="text" id="form-opt-3" required class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-navy-700 focus:outline-none">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block font-medium text-slate-700 mb-1">Kunci Jawaban Benar</label>
+                            <select id="form-correct" class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-navy-700 focus:outline-none">
+                                <option value="0">A</option>
+                                <option value="1">B</option>
+                                <option value="2">C</option>
+                                <option value="3">D</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block font-medium text-slate-700 mb-1">Pembahasan Ringkas</label>
+                            <input type="text" id="form-explanation" required class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-navy-700 focus:outline-none" placeholder="Penjelasan jawaban...">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-lg transition">
+                        <i class="fa-solid fa-plus mr-1.5"></i> Simpan Soal Ke Sistem
+                    </button>
+                </form>
+            </div>
+
+            <!-- Daftar Soal Terpasang -->
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                <div class="flex justify-between items-center border-b border-slate-100 pb-2">
+                    <h4 class="font-bold text-slate-800 text-sm uppercase tracking-wider">Daftar Soal Saat Ini</h4>
+                    <button onclick="resetQuestionsToDefault()" class="text-xs text-rose-600 hover:underline">Reset ke Default</button>
+                </div>
+                <div id="dev-questions-list" class="space-y-3">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modal Authentikasi Dev -->
+    <div id="dev-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-2xl shadow-xl max-w-sm w-full p-6 space-y-4">
+            <div class="text-center">
+                <div class="inline-block p-3 rounded-full bg-navy-50 text-navy-800 mb-2">
+                    <i class="fa-solid fa-lock text-xl"></i>
+                </div>
+                <h3 class="font-bold text-slate-800">Akses Mode Developer</h3>
+                <p class="text-xs text-slate-500 mt-1">Masukkan kode keamanan khusus developer.</p>
+            </div>
+            
+            <div>
+                <input type="password" id="dev-pin-input" placeholder="Masukkan PIN Rahasia" class="w-full px-4 py-2.5 border border-slate-300 rounded-xl text-center text-lg font-bold tracking-widest focus:ring-2 focus:ring-navy-800 focus:outline-none">
+                <p id="dev-auth-error" class="text-xs text-rose-600 mt-1.5 text-center hidden">PIN salah! Akses ditolak.</p>
+            </div>
+
+            <div class="flex space-x-2">
+                <button onclick="closeDevAuthModal()" class="w-1/2 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-xl transition">Batal</button>
+                <button onclick="verifyDevAuth()" class="w-1/2 py-2 bg-navy-900 hover:bg-navy-800 text-white text-xs font-semibold rounded-xl transition">Verifikasi</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500">
+        <p>© 2026 SiCerdik Sejarah Indonesia • Dirancang untuk Kejelasan & Pembelajaran</p>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Default Bank Soal
+        const DEFAULT_QUESTIONS = [
+            {
+                question: "Siapakah tokoh pahlawan nasional yang membacakan Teks Proklamasi Kemerdekaan Indonesia pada tanggal 17 Agustus 1945?",
+                options: ["Mohammad Hatta", "Ir. Soekarno", "Sutan Sjahrir", "Tan Malaka"],
+                correct: 1,
+                explanation: "Ir. Soekarno membacakan Teks Proklamasi didampingi oleh Drs. Mohammad Hatta di Jalan Pegangsaan Timur No. 56, Jakarta."
+            },
+            {
+                question: "Sumpah Pemuda dicetuskan pada tanggal 28 Oktober 1928 dalam Kongres Pemuda II. Di kota manakah kongres tersebut berlangsung?",
+                options: ["Bandung", "Surabaya", "Jakarta (Batavia)", "Yogyakarta"],
+                correct: 2,
+                explanation: "Kongres Pemuda II diselenggarakan di Jakarta (Batavia) pada tanggal 27-28 Oktober 1928."
+            },
+            {
+                question: "Pahlawan wanita asal Aceh yang gigih melawan penjajah Belanda dalam Perang Aceh adalah...",
+                options: ["R.A. Kartini", "Cut Nyak Dhien", "Dewi Sartika", "Martha Christina Tiahahu"],
+                correct: 1,
+                explanation: "Cut Nyak Dhien adalah pahlawan nasional dari Aceh yang terus memimpin perlawanan gerilya melawan Belanda."
+            },
+            {
+                question: "Peristiwa Pertempuran Surabaya 10 November 1945 kemudian diperingati oleh bangsa Indonesia sebagai...",
+                options: ["Hari Kemerdekaan", "Hari Sumpah Pemuda", "Hari Pahlawan", "Hari Kebangkitan Nasional"],
+                correct: 2,
+                explanation: "Pertempuran dahsyat di Surabaya memperlihatkan keberanian rakyat, sehingga tanggal 10 November ditetapkan sebagai Hari Pahlawan."
+            },
+            {
+                question: "Organisasi modern pertama di Indonesia yang didirikan pada tanggal 20 Mei 1908 dan menjadi pelopor Kebangkitan Nasional adalah...",
+                options: ["Sikat Islam", "Budi Utomo", "Indische Partij", "Perhimpunan Indonesia"],
+                correct: 1,
+                explanation: "Budi Utomo didirikan oleh Dr. Soetomo dan para mahasiswa STOVIA pada 20 Mei 1908."
+            }
+        ];
+
+        // Kutipan Pahlawan
+        const HERO_QUOTES = [
+            {
+                quote: "Perjuanganmu akan lebih mudah karena mengusir penjajah, tapi perjuanganmu akan lebih sulit karena melawan bangsamu sendiri.",
+                hero: "Ir. Soekarno"
+            },
+            {
+                quote: "Kurang cerdas dapat diperbaiki dengan belajar. Kurang kecakapan dapat dihilangkan dengan pengalaman. Namun jujur tidak bisa diganti.",
+                hero: "Drs. Mohammad Hatta"
+            },
+            {
+                quote: "Selama banteng-banteng Indonesia masih mempunyai darah merah yang dapat membikin secarik kain putih merah & putih, maka selama itu tidak akan kita akan menyerah kepada siapapun juga!",
+                hero: "Bung Tomo"
+            },
+            {
+                quote: "Terkadang, kesulitan harus kamu rasakan terlebih dahulu sebelum kebahagiaan yang sempurna datang kepadamu.",
+                hero: "R.A. Kartini"
+            },
+            {
+                quote: "Dengan ilmu kita menuju kemuliaan.",
+                hero: "Ki Hajar Dewantara"
+            }
+        ];
+
+        // State Aplikasi
+        let questions = [];
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+
+        // Inisialisasi
+        window.onload = function() {
+            loadQuestions();
+        };
+
+        function loadQuestions() {
+            const saved = localStorage.getItem('sicerdik_questions');
+            if (saved) {
+                questions = JSON.parse(saved);
+            } else {
+                questions = [...DEFAULT_QUESTIONS];
+                saveQuestions();
+            }
+        }
+
+        function saveQuestions() {
+            localStorage.setItem('sicerdik_questions', JSON.stringify(questions));
+        }
+
+        function showSection(sectionId) {
+            ['welcome-screen', 'quiz-screen', 'result-screen', 'dev-screen'].forEach(id => {
+                document.getElementById(id).classList.add('hidden');
+            });
+            document.getElementById(sectionId).classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Quiz Engine
+        function startQuiz() {
+            currentQuestionIndex = 0;
+            userAnswers = new Array(questions.length).fill(null);
+            showSection('quiz-screen');
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const q = questions[currentQuestionIndex];
+            document.getElementById('question-text').innerText = `${currentQuestionIndex + 1}. ${q.question}`;
+            document.getElementById('progress-text').innerText = `Soal ${currentQuestionIndex + 1} dari ${questions.length}`;
+            document.getElementById('progress-bar').style.width = `${((currentQuestionIndex + 1) / questions.length) * 100}%`;
+
+            const container = document.getElementById('options-container');
+            container.innerHTML = '';
+
+            q.options.forEach((opt, idx) => {
+                const isSelected = userAnswers[currentQuestionIndex] === idx;
+                const card = document.createElement('div');
+                card.className = `option-card p-4 rounded-xl border cursor-pointer font-medium text-sm flex items-center justify-between ${
+                    isSelected 
+                    ? 'border-navy-800 bg-navy-50 text-navy-900 shadow-sm' 
+                    : 'border-slate-200 bg-slate-50/50 hover:bg-slate-100/80 text-slate-700'
+                }`;
+                card.onclick = () => selectOption(idx);
+                card.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <span class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs ${
+                            isSelected ? 'bg-navy-900 text-white' : 'bg-slate-200 text-slate-600'
+                        }">${String.fromCharCode(65 + idx)}</span>
+                        <span>${opt}</span>
+                    </div>
+                    ${isSelected ? '<i class="fa-solid fa-circle-check text-navy-800"></i>' : ''}
+                `;
+                container.appendChild(card);
+            });
+
+            document.getElementById('prev-btn').disabled = currentQuestionIndex === 0;
+            document.getElementById('next-btn').innerText = currentQuestionIndex === questions.length - 1 ? 'Selesai & Lihat Hasil' : 'Selanjutnya';
+        }
+
+        function selectOption(index) {
+            userAnswers[currentQuestionIndex] = index;
+            renderQuestion();
+        }
+
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                renderQuestion();
+            }
+        }
+
+        function nextQuestion() {
+            if (userAnswers[currentQuestionIndex] === null) {
+                alert('Silakan pilih salah satu jawaban terlebih dahulu.');
+                return;
+            }
+
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                renderQuestion();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        function finishQuiz() {
+            let correctCount = 0;
+            questions.forEach((q, idx) => {
+                if (userAnswers[idx] === q.correct) {
+                    correctCount++;
+                }
+            });
+
+            const score = Math.round((correctCount / questions.length) * 100);
+            document.getElementById('final-score').innerText = score;
+            document.getElementById('score-details').innerText = `${correctCount} dari ${questions.length} Benar`;
+
+            // Random hero quote
+            const randomQuote = HERO_QUOTES[Math.floor(Math.random() * HERO_QUOTES.length)];
+            document.getElementById('hero-quote').innerText = `"${randomQuote.quote}"`;
+            document.getElementById('hero-name').innerText = `— ${randomQuote.hero}`;
+
+            renderReview();
+            showSection('result-screen');
+
+            // Trigger confetti
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 80,
+                    spread: 60,
+                    origin: { y: 0.6 }
+                });
+            }
+        }
+
+        function renderReview() {
+            const container = document.getElementById('review-container');
+            container.innerHTML = '';
+
+            questions.forEach((q, idx) => {
+                const userAns = userAnswers[idx];
+                const isCorrect = userAns === q.correct;
+
+                const card = document.createElement('div');
+                card.className = `p-5 rounded-xl border ${
+                    isCorrect ? 'bg-emerald-50/40 border-emerald-200' : 'bg-rose-50/40 border-rose-200'
+                } space-y-3`;
+
+                card.innerHTML = `
+                    <div class="flex items-start justify-between">
+                        <span class="font-semibold text-sm text-slate-800">${idx + 1}. ${q.question}</span>
+                        <span class="px-2.5 py-1 rounded-md text-xs font-bold ${
+                            isCorrect ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'
+                        }">
+                            ${isCorrect ? '<i class="fa-solid fa-check mr-1"></i> Benar' : '<i class="fa-solid fa-xmark mr-1"></i> Salah'}
+                        </span>
+                    </div>
+
+                    <div class="text-xs space-y-1">
+                        <p class="text-slate-600">Jawaban Anda: <span class="font-semibold ${isCorrect ? 'text-emerald-700' : 'text-rose-700'}">${q.options[userAns]}</span></p>
+                        ${!isCorrect ? `<p class="text-slate-600">Kunci Jawaban: <span class="font-semibold text-emerald-700">${q.options[q.correct]}</span></p>` : ''}
+                    </div>
+
+                    <div class="bg-white p-3 rounded-lg border border-slate-200/80 text-xs text-slate-600 leading-relaxed">
+                        <span class="font-bold text-navy-900 block mb-0.5"><i class="fa-solid fa-circle-info text-amber-600 mr-1"></i> Pembahasan:</span>
+                        ${q.explanation}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Mode Developer Auth (PIN Rahasia: 160812)
+        function openDevAuthModal() {
+            document.getElementById('dev-pin-input').value = '';
+            document.getElementById('dev-auth-error').classList.add('hidden');
+            document.getElementById('dev-modal').classList.remove('hidden');
+            document.getElementById('dev-modal').classList.add('flex');
+        }
+
+        function closeDevAuthModal() {
+            document.getElementById('dev-modal').classList.add('hidden');
+            document.getElementById('dev-modal').classList.remove('flex');
+        }
+
+        function verifyDevAuth() {
+            const pin = document.getElementById('dev-pin-input').value;
+            // PIN khusus yang Anda minta
+            if (pin === '160812') {
+                closeDevAuthModal();
+                renderDevQuestionsList();
+                showSection('dev-screen');
+            } else {
+                document.getElementById('dev-auth-error').classList.remove('hidden');
+            }
+        }
+
+        // Developer CRUD Operations
+        function renderDevQuestionsList() {
+            const container = document.getElementById('dev-questions-list');
+            container.innerHTML = '';
+
+            questions.forEach((q, idx) => {
+                const item = document.createElement('div');
+                item.className = 'p-3.5 bg-slate-50 border border-slate-200 rounded-lg flex justify-between items-center text-xs';
+                item.innerHTML = `
+                    <div class="pr-4">
+                        <p class="font-semibold text-slate-800">${idx + 1}. ${q.question}</p>
+                        <p class="text-slate-500 mt-0.5">Kunci: <span class="font-medium text-emerald-700">${q.options[q.correct]}</span></p>
+                    </div>
+                    <button onclick="deleteQuestion(${idx})" class="text-rose-600 hover:text-rose-800 p-1.5 rounded hover:bg-rose-50 transition">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        function handleSaveQuestion(e) {
+            e.preventDefault();
+            const newQ = {
+                question: document.getElementById('form-question').value,
+                options: [
+                    document.getElementById('form-opt-0').value,
+                    document.getElementById('form-opt-1').value,
+                    document.getElementById('form-opt-2').value,
+                    document.getElementById('form-opt-3').value,
+                ],
+                correct: parseInt(document.getElementById('form-correct').value),
+                explanation: document.getElementById('form-explanation').value
+            };
+
+            questions.push(newQ);
+            saveQuestions();
+            renderDevQuestionsList();
+            document.getElementById('add-question-form').reset();
+            alert('Soal baru berhasil ditambahkan!');
+        }
+
+        function deleteQuestion(index) {
+            if (confirm('Apakah Anda yakin ingin menghapus soal ini?')) {
+                questions.splice(index, 1);
+                saveQuestions();
+                renderDevQuestionsList();
+            }
+        }
+
+        function resetQuestionsToDefault() {
+            if (confirm('Kembalikan semua soal ke bank soal awal/default?')) {
+                questions = [...DEFAULT_QUESTIONS];
+                saveQuestions();
+                renderDevQuestionsList();
+            }
+        }
+    </script>
+</body>
+</html>
