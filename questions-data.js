@@ -810,5 +810,4 @@ const quizData = [
     explanation: "J.P. Coen memindahkan pusat kekuasaan VOC dari Ambon ke Jayakarta pada tahun 1619 lalu mengubah namanya menjadi Batavia."
   },
   {
-    question: "Hak VOC untuk menebang tanaman rempah-rempah demi membatasi produksi agar harga tetap tinggi dinamakan hak...",
-    options: ["Ekstirpasi", "Oktroi", "Hongi", "Contingenten"],
+  
