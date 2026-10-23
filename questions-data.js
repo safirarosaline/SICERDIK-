@@ -809,5 +809,5 @@ const quizData = [
     answer: "Jan Pieterszoon Coen",
     explanation: "J.P. Coen memindahkan pusat kekuasaan VOC dari Ambon ke Jayakarta pada tahun 1619 lalu mengubah namanya menjadi Batavia."
   },
-  {
+  ];
   
