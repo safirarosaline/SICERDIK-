@@ -1,6 +1,5 @@
-// Bank Soal Sejarah Indonesia - Kurikulum Merdeka 
-const DEFAULT_QUESTIONS = [
-    // --- MASA PROKLAMASI & KEMERDEKAAN ---
+// Bank Soal Sejarah Indonesia - SiCerdik Kurikulum Merdeka
+const questionsData = [
     {
         question: "Siapakah tokoh pahlawan nasional yang membacakan Teks Proklamasi Kemerdekaan Indonesia pada tanggal 17 Agustus 1945?",
         options: ["Mohammad Hatta", "Ir. Soekarno", "Sutan Sjahrir", "Tan Malaka"],
@@ -19,8 +18,6 @@ const DEFAULT_QUESTIONS = [
         correct: 0,
         explanation: "Sayuti Melik adalah tokoh pemuda yang mengetik naskah Proklamasi Kemerdekaan Indonesia dengan melakukan beberapa perubahan ejaan."
     },
-
-    // --- MASA PERGERAKAN NASIONAL & SUMPAH PEMUDA ---
     {
         question: "Sumpah Pemuda dicetuskan pada tanggal 28 Oktober 1928 dalam Kongres Pemuda II. Di kota manakah kongres tersebut berlangsung?",
         options: ["Bandung", "Surabaya", "Jakarta", "Yogyakarta"],
@@ -39,8 +36,6 @@ const DEFAULT_QUESTIONS = [
         correct: 1,
         explanation: "Lagu Indonesia Raya ciptaan Wage Rudolf Supratman pertama kali dimainkan menggunakan biola pada Kongres Pemuda II tanggal 28 Oktober 1928."
     },
-
-    // --- MASA PERJUANGAN MEMPERTAHANKAN KEMERDEKAAN ---
     {
         question: "Peristiwa Pertempuran Surabaya tanggal 10 November 1945 yang dipimpin oleh Bung Tomo kini diperingati oleh bangsa Indonesia sebagai...",
         options: ["Hari Kemerdekaan", "Hari Sumpah Pemuda", "Hari Pahlawan", "Hari Kebangkitan Nasional"],
@@ -53,8 +48,6 @@ const DEFAULT_QUESTIONS = [
         correct: 0,
         explanation: "Peristiwa Bandung Lautan Api terjadi pada 23 Maret 1946, di mana penduduk membakar rumah dan kota Bandung bagian selatan sebelum meninggalkan kota tersebut."
     },
-
-    // --- MASA KERAJAAN NUSANTARA ---
     {
         question: "Patih Kerajaan Majapahit yang terkenal dengan ikrar 'Sumpah Palapa' untuk menyatukan Nusantara adalah...",
         options: ["Hayam Wuruk", "Gajah Mada", "Raden Wijaya", "Kertanegara"],
@@ -66,63 +59,52 @@ const DEFAULT_QUESTIONS = [
         options: ["Kerajaan Tarumanagara", "Kerajaan Kutai", "Kerajaan Sriwijaya", "Kerajaan Mataram Kuno"],
         correct: 1,
         explanation: "Kerajaan Kutai Martadipura berdiri sekitar abad ke-4 Masehi di Muara Kaman, Kalimantan Timur, dan merupakan kerajaan Hindu tertua di Nusantara."
+    },
+    {
+        question: "Kerajaan maritim Buddha terbesar di Indonesia yang menjadi pusat pembelajaran agama Buddha di Asia Tenggara adalah...",
+        options: ["Kerajaan Majapahit", "Kerajaan Sriwijaya", "Kerajaan Singasari", "Kerajaan Mataram Kuno"],
+        correct: 1,
+        explanation: "Kerajaan Sriwijaya yang berpusat di Palembang merupakan kerajaan bahari besar yang menguasai jalur pelayaran Selat Malaka serta menjadi pusat agama Buddha."
+    },
+    {
+        question: "Pahlawan wanita asal Aceh yang pantang menyerah dan terus memimpin perlawanan gerilya melawan penjajah Belanda adalah...",
+        options: ["R.A. Kartini", "Cut Nyak Dhien", "Dewi Sartika", "Martha Christina Tiahahu"],
+        correct: 1,
+        explanation: "Cut Nyak Dhien adalah pahlawan nasional wanita dari Aceh yang melanjutkan perjuangan suaminya, Teuku Umar, melawan kolonial Belanda."
+    },
+    {
+        question: "Sistem tanam paksa (Cultuurstelsel) yang sangat menyengsarakan rakyat Indonesia pada masa kolonial Belanda diperkenalkan oleh Gubernur Jenderal...",
+        options: ["Herman Willem Daendels", "Johannes van den Bosch", "Jan Pieterszoon Coen", "Thomas Stamford Raffles"],
+        correct: 1,
+        explanation: "Johannes van den Bosch menerapkan sistem Tanam Paksa pada tahun 1830 untuk mengisi kembali kas negara Belanda yang kosong akibat perang."
+    },
+    {
+        question: "Badan yang dibentuk oleh pemerintah Jepang pada tanggal 1 Maret 1945 untuk mempersiapkan kemerdekaan Indonesia adalah...",
+        options: ["BPUPKI", "PPKI", "KNPI", "PETA"],
+        correct: 0,
+        explanation: "BPUPKI (Badan Penyelidik Usaha-usaha Persiapan Kemerdekaan Indonesia) atau Dokuritsu Junbi Cosakai bertugas menyelidiki dan merumuskan dasar negara Indonesia."
+    },
+    {
+        question: "Raja terkenal dari Kerajaan Kediri yang terkenal dengan ramalan-ramalannya mengenai masa depan Nusantara adalah...",
+        options: ["Raja Mulawarman", "Raja Purnawarman", "Raja Jayabaya", "Raja Ken Arok"],
+        correct: 2,
+        explanation: "Raja Jayabaya adalah raja terbesar Kerajaan Kediri yang memerintah pada abad ke-12 dan sangat tersohor dengan Ramalan Jayabaya."
+    },
+    {
+        question: "Konferensi Meja Bundar (KMB) yang menandai pengakuan kedaulatan Indonesia oleh Belanda diselenggarakan di kota...",
+        options: ["Jakarta", "Linggarjati", "Den Haag", "Bangkok"],
+        correct: 2,
+        explanation: "KMB dilaksanakan di Den Haag, Belanda, pada akhir tahun 1949 dan menghasilkan penyerahan/pengakuan kedaulatan bagi Republik Indonesia Serikat (RIS)."
+    },
+    {
+        question: "Berapa jumlah bulu pada leher Burung Garuda lambang negara Indonesia?",
+        options: ["44", "45", "46", "47"],
+        correct: 1,
+        explanation: "Jumlah bulu pada bagian leher Burung Garuda adalah 45, yang melambangkan angka tahun kemerdekaan (1945)."
     }
 ];
 
-// Generator Otomatis Bank Soal Sejarah Indonesia Kurikulum Merdeka (Total 150 Soal)
-(function generateFullQuestionBank() {
-    const materiSejarah = [
-        {
-            soal: "Kerajaan maritim Buddha terbesar di Indonesia yang menjadi pusat pembelajaran agama Buddha di Asia Tenggara adalah...",
-            opsi: ["Kerajaan Majapahit", "Kerajaan Sriwijaya", "Kerajaan Singasari", "Kerajaan Mataram Kuno"],
-            kunci: 1,
-            alasan: "Kerajaan Sriwijaya yang berpusat di Palembang merupakan kerajaan bahari besar yang menguasai jalur pelayaran Selat Malaka serta menjadi pusat agama Buddha."
-        },
-        {
-            soal: "Pahlawan wanita asal Aceh yang pantang menyerah dan terus memimpin perlawanan gerilya melawan penjajah Belanda adalah...",
-            opsi: ["R.A. Kartini", "Cut Nyak Dhien", "Dewi Sartika", "Martha Christina Tiahahu"],
-            kunci: 1,
-            alasan: "Cut Nyak Dhien adalah pahlawan nasional wanita dari Aceh yang melanjutkan perjuangan suaminya, Teuku Umar, melawan kolonial Belanda."
-        },
-        {
-            soal: "Sistem tanam paksa (Cultuurstelsel) yang sangat menyengsarakan rakyat Indonesia pada masa kolonial Belanda diperkenalkan oleh Gubernur Jenderal...",
-            opsi: ["Herman Willem Daendels", "Johannes van den Bosch", "Jan Pieterszoon Coen", "Thomas Stamford Raffles"],
-            kunci: 1,
-            alasan: "Johannes van den Bosch menerapkan sistem Tanam Paksa pada tahun 1830 untuk mengisi kembali kas negara Belanda yang kosong akibat perang."
-        },
-        {
-            soal: "Badan yang dibentuk oleh pemerintah Jepang pada tanggal 1 Maret 1945 untuk mempersiapkan kemerdekaan Indonesia adalah...",
-            opsi: ["BPUPKI", "PPKI", "KNPI", "PETA"],
-            kunci: 0,
-            alasan: "BPUPKI (Badan Penyelidik Usaha-usaha Persiapan Kemerdekaan Indonesia) atau Dokuritsu Junbi Cosakai bertugas menyelidiki dan merumuskan dasar negara Indonesia."
-        },
-        {
-            soal: "Raja terkenal dari Kerajaan Kediri yang terkenal dengan ramalan-ramalannya mengenai masa depan Nusantara adalah...",
-            opsi: ["Raja Mulawarman", "Raja Purnawarman", "Raja Jayabaya", "Raja Ken Arok"],
-            kunci: 2,
-            alasan: "Raja Jayabaya adalah raja terbesar Kerajaan Kediri yang memerintah pada abad ke-12 dan sangat tersohor dengan Ramalan Jayabaya."
-        },
-        {
-            soal: "Konferensi Meja Bundar (KMB) yang menandai pengakuan kedaulatan Indonesia oleh Belanda diselenggarakan di kota...",
-            opsi: ["Jakarta", "Linggarjati", "Den Haag", "Bangkok"],
-            kunci: 2,
-            alasan: "KMB dilaksanakan di Den Haag, Belanda, pada akhir tahun 1949 dan menghasilkan penyerahan/pengakuan kedaulatan bagi Republik Indonesia Serikat (RIS)."
-        },
-        {
-            soal: "Berapa Jumlah Bulu Pada Leher Burung Garuda...",            
-            opsi: ["44", "45", "46", "47"],            
-            kunci: 45,            
-            alasan: "Jumlah Bulu Pada Leher Burung Garuda Adalah 45."
-        }
-       ];
-
-    for (let i = DEFAULT_QUESTIONS.length + 1; i <= 150; i++) {
-        const item = materiSejarah[i % materiSejarah.length];
-        DEFAULT_QUESTIONS.push({
-            question: item.soal,
-            options: item.opsi,
-            correct: item.kunci,
-            explanation: item.alasan
-        });
-    }
-})();
+// Sinkronisasi variabel global agar aman dibaca script utama web
+window.questionsData = questionsData;
+window.quizData = questionsData;
+window.DEFAULT_QUESTIONS = questionsData;
