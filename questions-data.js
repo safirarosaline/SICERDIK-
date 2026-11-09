@@ -1,5 +1,5 @@
 // Bank Soal Sejarah Indonesia - SiCerdik Kurikulum Merdeka
-constquestionsData = [
+const questionsData = [
     {
         question: "Siapakah tokoh pahlawan nasional yang membacakan Teks Proklamasi Kemerdekaan Indonesia pada tanggal 17 Agustus 1945?",
         options: ["Mohammad Hatta", "Ir. Soekarno", "Sutan Sjahrir", "Tan Malaka"],
@@ -781,6 +781,14 @@ constquestionsData = [
         explanation: "Prasasti Kedukan Bukit ditulis dalam bahasa Melayu Kuno menggunakan aksara Pallawa."
     }
 ];
+
+// Sinkronisasi otomatis agar properti kunci tidak undefined di frontend
+questionsData.forEach(item => {
+    const jawabanFix = item.correct || item.kunci || item.answer;
+    item.correct = jawabanFix;
+    item.kunci = jawabanFix;
+    item.answer = jawabanFix;
+});
 
 // Sinkronisasi variabel global agar aman dibaca script utama web
 window.questionsData = questionsData;
