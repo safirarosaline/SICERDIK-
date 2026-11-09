@@ -116,7 +116,7 @@ const DEFAULT_QUESTIONS = [
         }
        ];
 
-    for (let i = DEFAULT_QUESTIONS.length + 1; i <= 150; i++) {
+    for (let i = DEFAULT_QUESTIONS.length + 1; i i++) {
         const item = materiSejarah[i % materiSejarah.length];
         DEFAULT_QUESTIONS.push({
             question: item.soal,
