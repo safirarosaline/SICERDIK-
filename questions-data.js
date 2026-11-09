@@ -1,5 +1,5 @@
 // Bank Soal Sejarah Indonesia - SiCerdik Kurikulum Merdeka
-const questionsData = [
+constquestionsData = [
     {
         question: "Siapakah tokoh pahlawan nasional yang membacakan Teks Proklamasi Kemerdekaan Indonesia pada tanggal 17 Agustus 1945?",
         options: ["Mohammad Hatta", "Ir. Soekarno", "Sutan Sjahrir", "Tan Malaka"],
