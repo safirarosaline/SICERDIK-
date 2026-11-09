@@ -1,4 +1,4 @@
-// Bank Soal Sejarah Indonesia - Kurikulum Merdeka (150 Soal)
+// Bank Soal Sejarah Indonesia - Kurikulum Merdeka 
 const DEFAULT_QUESTIONS = [
     // --- MASA PROKLAMASI & KEMERDEKAAN ---
     {
@@ -107,8 +107,14 @@ const DEFAULT_QUESTIONS = [
             opsi: ["Jakarta", "Linggarjati", "Den Haag", "Bangkok"],
             kunci: 2,
             alasan: "KMB dilaksanakan di Den Haag, Belanda, pada akhir tahun 1949 dan menghasilkan penyerahan/pengakuan kedaulatan bagi Republik Indonesia Serikat (RIS)."
+        },
+        {
+            soal: "Berapa Jumlah Bulu Pada Leher Burung Garuda...",            
+            opsi: ["44", "45", "46", "47"],            
+            kunci: 2,            
+            alasan: "Jumlah Bulu Pada Leher Burung Garuda Adalah 45."
         }
-    ];
+       ];
 
     for (let i = DEFAULT_QUESTIONS.length + 1; i <= 150; i++) {
         const item = materiSejarah[i % materiSejarah.length];
