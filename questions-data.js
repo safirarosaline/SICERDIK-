@@ -111,7 +111,7 @@ const DEFAULT_QUESTIONS = [
         {
             soal: "Berapa Jumlah Bulu Pada Leher Burung Garuda...",            
             opsi: ["44", "45", "46", "47"],            
-            kunci: 3,            
+            kunci: 4,            
             alasan: "Jumlah Bulu Pada Leher Burung Garuda Adalah 45."
         }
        ];
