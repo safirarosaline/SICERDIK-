@@ -1,4 +1,4 @@
-// Bank Soal Sejarah Indonesia - 150 Soal Unik Tanpa Duplikasi (SiCerdik)
+// Bank Soal Sejarah Indonesia - 150 Soal (SiCerdik)
 const questionsData = [
     {
         question: "Benda-benda peninggalan sejarah dari masa lalu yang dibuat oleh manusia disebut...",
