@@ -457,22 +457,6 @@ const questionsData = [
         explanation: "Abris Sous Roche adalah gua karang tempat perlindungan manusia purba."
     },
     {
-        question: "Sampah dapur kulit kerang menumpuk peninggalan purbakala disebut...",
-        options: ["Kjokkenmoddinger", "Sarkofagus", "Waruga", "Moko"],
-        correct: 0,
-        kunci: "Kjokkenmoddinger",
-        answer: "Kjokkenmoddinger",
-        explanation: "Kjokkenmoddinger adalah bukit kerang bekas makanan manusia purba."
-    },
-    {
-        question: "Peti kubur batu peninggalan zaman Megalitikum yang berbentuk seperti lesung disebut...",
-        options: ["Sarkofagus", "Menhir", "Dolmen", "Yupa"],
-        correct: 0,
-        kunci: "Sarkofagus",
-        answer: "Sarkofagus",
-        explanation: "Sarkofagus adalah wadah jenazah batu utuh dengan tutup."
-    },
-    {
         question: "Peti kubur batu berukuran kecil berbentuk kubus banyak ditemukan di Minahasa bernama...",
         options: ["Waruga", "Sarkofagus", "Moko", "Kapak"],
         correct: 0,
